@@ -1,0 +1,52 @@
+# Model arguments
+model_name_or_path: /mnt/bn/ocr-rl-data/whiteboxRL/model/Qwen2.5-7B-Instruct
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+eos_token: '<|im_end|>'
+
+# Data training arguments
+dataset_name: openai/gsm8k
+dataset_config: main
+
+# GRPO trainer config
+bf16: true
+use_vllm: true
+do_eval: false
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: Qwen2.5-7B-GSM8k-GRPO
+hub_strategy: end
+learning_rate: 2.0e-05
+log_completions: true
+log_level: info
+logging_first_step: true
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_prompt_length: 1024
+max_completion_length: 1024
+max_steps: -1
+num_generations: 8
+num_train_epochs: 1
+output_dir: /mnt/bn/ocr-rl-data/whiteboxRL/experiments/GSM8k_Qwen25_7B_Instruct/exp016
+overwrite_output_dir: true
+per_device_eval_batch_size: 8
+per_device_train_batch_size: 8
+push_to_hub: false
+report_to:
+- wandb
+reward_funcs:
+- accuracy
+- format
+- tag_count
+reward_weights:
+- 1.0
+- 1.0
+- 1.0
+save_strategy: "epoch"
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1
