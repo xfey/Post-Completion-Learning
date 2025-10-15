@@ -1,0 +1,48 @@
+# Model arguments
+model_name_or_path: /mnt/bn/ocr-rl-data/whiteboxRL/model/Llama-3.2-3B-Instruct
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+eos_token: '<|eot_id|>'
+
+# Data training arguments
+dataset_name: strategyqa
+dataset_config: main
+dataset_num_proc: 4
+completion_only_loss: true
+
+# SFT trainer config
+bf16: true
+do_eval: false
+eval_strategy: 'no'
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: LLAMA3-3b-strategyqa-SFT
+hub_strategy: end
+learning_rate: 1.0e-05
+log_level: info
+logging_steps: 5
+logging_strategy: steps
+lr_scheduler_type: cosine_with_min_lr
+lr_scheduler_kwargs:
+  min_lr_rate: 0.1
+packing: false
+max_length: 2048
+max_steps: -1
+num_train_epochs: 1
+output_dir: /mnt/bn/ocr-rl-data/whiteboxRL/experiments/GSM8k_LLAMA/exp148
+overwrite_output_dir: true
+per_device_eval_batch_size: 4
+per_device_train_batch_size: 4
+push_to_hub: false
+report_to:
+- wandb
+save_strategy: "steps"
+save_steps: 500
+save_total_limit: 1
+seed: 42
+use_liger: true
+warmup_ratio: 0.05
+
